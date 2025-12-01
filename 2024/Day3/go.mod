@@ -1,3 +1,3 @@
-module github.com/marceljk/AoC24/day3
+module github.com/marceljk/advent-of-code/2024/Day3
 
 go 1.23.2
