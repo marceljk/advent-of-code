@@ -3,6 +3,7 @@ package year2025
 import (
 	"github.com/marceljk/advent-of-code/cmd/2025/day1"
 	"github.com/marceljk/advent-of-code/cmd/2025/day2"
+	"github.com/marceljk/advent-of-code/cmd/2025/day3"
 	"github.com/spf13/cobra"
 )
 
@@ -23,4 +24,5 @@ func NewCmd() *cobra.Command {
 func addSubcommands(cmd *cobra.Command) {
 	cmd.AddCommand(day1.NewCmd())
 	cmd.AddCommand(day2.NewCmd())
+	cmd.AddCommand(day3.NewCmd())
 }
