@@ -1,10 +1,5 @@
 package utils
 
-import (
-	"fmt"
-	"strconv"
-)
-
 // IsSliceEqual compares two rune slices and returns true, if their content is equal
 func IsSliceEqual[K comparable](x, y []K) bool {
 	if len(x) != len(y) {
@@ -37,15 +32,21 @@ func FindLargestValue[T ~[]uint](input T) (largestVal uint, largestIdx int) {
 	return
 }
 
-// ConcateNum concatenates the input uint values to one value
-func ConcateNum[T uint | int](input ...T) (uint64, error) {
-	var concat string
+// ConcateUint concatenates the input uint values to one value
+func ConcateUint[T uint8 | uint16 | uint | uint64](input ...T) uint64 {
+	var result uint64
 	for _, val := range input {
-		concat += fmt.Sprintf("%d", val)
+		result = result*10 + uint64(val)
 	}
-	result, err := strconv.ParseUint(concat, 10, 64)
-	if err != nil {
-		return 0, err
+	return result
+}
+
+// CountOccurrences counts how often a specifc entry occurce in a slice
+func CountOccurrences[T comparable](input []T, searchValue T) (count int) {
+	for idx := range input {
+		if input[idx] == searchValue {
+			count++
+		}
 	}
-	return result, nil
+	return
 }
