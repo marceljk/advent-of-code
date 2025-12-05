@@ -5,6 +5,7 @@ import (
 	"github.com/marceljk/advent-of-code/cmd/2025/day2"
 	"github.com/marceljk/advent-of-code/cmd/2025/day3"
 	"github.com/marceljk/advent-of-code/cmd/2025/day4"
+	"github.com/marceljk/advent-of-code/cmd/2025/day5"
 	"github.com/spf13/cobra"
 )
 
@@ -27,4 +28,5 @@ func addSubcommands(cmd *cobra.Command) {
 	cmd.AddCommand(day2.NewCmd())
 	cmd.AddCommand(day3.NewCmd())
 	cmd.AddCommand(day4.NewCmd())
+	cmd.AddCommand(day5.NewCmd())
 }
