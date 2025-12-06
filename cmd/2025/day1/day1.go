@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/marceljk/advent-of-code/pkg/utils/globalflags"
+	"github.com/marceljk/advent-of-code/pkg/utils/runner"
 	"github.com/spf13/cobra"
 )
 
@@ -29,41 +30,29 @@ func NewCmd() *cobra.Command {
 		Short: "Solution for 2025 day 1",
 		Long:  "Solution for 2025 day 1.",
 		Args:  cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, _ []string) error {
-			model, err := globalflags.ParseInput(cmd)
-			if err != nil {
-				return fmt.Errorf("failec parsing model: %w", err)
-			}
-
-			switch model.Task {
-			case 2:
-				return task2(*model)
-			default:
-				return task1(*model)
-			}
-		},
+		RunE:  runner.GenericRunE(task1, task2),
 	}
 	globalflags.ConfigureFlags(cmd)
 	return cmd
 }
 
-func task1(model globalflags.Model) error {
-	rotations, err := parseRotation(model.FileContent)
+func task1(input string) error {
+	rotations, err := parseRotation(input)
 	if err != nil {
 		return fmt.Errorf("failed parsing rotation: %w", err)
 	}
 	zeroValues := calcPassword1(startValue, rotations)
-	fmt.Printf("Solution is: %d\n", zeroValues)
+	fmt.Printf("Solution 1: %d\n", zeroValues)
 	return nil
 }
 
-func task2(model globalflags.Model) error {
-	rotations, err := parseRotation(model.FileContent)
+func task2(input string) error {
+	rotations, err := parseRotation(input)
 	if err != nil {
 		return fmt.Errorf("failed parsing rotation: %w", err)
 	}
 	zeroValues := calcPassword2(startValue, rotations)
-	fmt.Printf("Solution is: %d\n", zeroValues)
+	fmt.Printf("Solution 2: %d\n", zeroValues)
 	return nil
 }
 
@@ -143,11 +132,9 @@ func calcPassword2(startValue int, rotations []rotation) uint {
 				current += 100
 			}
 			if previous != 0 {
-				fmt.Printf("Last operation: %q, %d. Previous: %d Current: %d\n", value.op, value.moves, previous, current)
 				zeroValues++
 			}
 		} else if current == 0 {
-			fmt.Printf("Last operation: %q, %d. Previous: %d Current: %d\n", value.op, value.moves, previous, current)
 			zeroValues++
 		}
 

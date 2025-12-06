@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/marceljk/advent-of-code/pkg/utils/globalflags"
+	"github.com/marceljk/advent-of-code/pkg/utils/runner"
 	"github.com/spf13/cobra"
 )
 
@@ -23,26 +24,14 @@ func NewCmd() *cobra.Command {
 		Short: "Solution for 2025 day 5",
 		Long:  "Solution for 2025 day 5.",
 		Args:  cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, _ []string) error {
-			model, err := globalflags.ParseInput(cmd)
-			if err != nil {
-				return fmt.Errorf("failec parsing model: %w", err)
-			}
-
-			switch model.Task {
-			case 2:
-				return task2(*model)
-			default:
-				return task1(*model)
-			}
-		},
+		RunE:  runner.GenericRunE(task1, task2),
 	}
 	globalflags.ConfigureFlags(cmd)
 	return cmd
 }
 
-func task1(model globalflags.Model) error {
-	freshIds, availableIds, err := parseIngredientsList(model.FileContent)
+func task1(input string) error {
+	freshIds, availableIds, err := parseIngredientsList(input)
 	if err != nil {
 		return fmt.Errorf("can not parse list: %w", err)
 	}
@@ -59,8 +48,8 @@ func task1(model globalflags.Model) error {
 	return nil
 }
 
-func task2(model globalflags.Model) error {
-	freshIds, _, err := parseIngredientsList(model.FileContent)
+func task2(input string) error {
+	freshIds, _, err := parseIngredientsList(input)
 	if err != nil {
 		return fmt.Errorf("can not parse list: %w", err)
 	}
