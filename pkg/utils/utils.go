@@ -22,6 +22,15 @@ func GetMapKeys[K comparable, V any](input map[K]V) []K {
 	return result
 }
 
+// GetMapValues returns a slice with all values of the input map
+func GetMapValues[K comparable, V any](input map[K]V) []V {
+	result := []V{}
+	for _, v := range input {
+		result = append(result, v)
+	}
+	return result
+}
+
 // FindLargestValue takes as input an uint slice and returns the largest digit in this slice with their value in this slice
 func FindLargestValue[T ~[]uint](input T) (largestVal uint, largestIdx int) {
 	for inputIdx, inputVal := range input {
